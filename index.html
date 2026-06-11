@@ -521,7 +521,13 @@ document.getElementById('tokenInput').addEventListener('keydown', (e) => {
 // Socket.IO Connection
 // ============================================================
 function initSocket() {
-    socket = io();
+   socket = io({
+    transports: ['polling', 'websocket'],
+    upgrade: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 2000,
+    timeout: 20000
+   });
     
     socket.on('connect', () => {
         console.log('Socket connected');
